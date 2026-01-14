@@ -48,3 +48,21 @@ void *ft_strdup(const char *str)
     ft_memcpy(dst, str, len);
     return (dst);
 }
+
+void *ft_substr(char const *s, unsigned int start, size_t len)
+{
+    char *substr;
+    size_t i;
+    
+    i = 0;
+    substr = malloc((len + 1) * sizeof(char));
+    if (!substr)
+        return (NULL);
+    while (i < len && *(s + start + i))
+    {
+        *(substr + i) = *(s + start + i);
+        i++;
+    }
+    *(substr + i) = '\0';
+    return (substr);
+}
