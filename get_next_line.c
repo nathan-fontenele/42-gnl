@@ -79,5 +79,15 @@ char *get_next_line_helper(char **stash, int fd)
 
 char *get_next_line(int fd)
 {
+    static char *stash;
     
+    if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+    {
+        free(stash);
+        stash = NULL;
+        return (NULL);
+    }
+    if (!stash)
+        stash = ft_strdup("");
+    return (get_next_line_helper(&stash, fd));
 }
