@@ -32,7 +32,23 @@ char *process_line(char **stash)
     return (NULL);
 }
 
-
+char *read_from_fd(int fd)
+{
+    char *line_read;
+    int read_bytes;
+    
+    line_read = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+    if (!line_read)
+        return (NULL);
+    read_bytes = read(fd, line_read, BUFFER_SIZE);
+    if (read_bytes <= 0)
+    {
+        free(line_read);
+        return (NULL);
+    }
+    line_read[read_bytes] = '\0';
+    return (line_read);
+}
 
 char *get_next_line(int fd)
 {
