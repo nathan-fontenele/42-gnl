@@ -35,3 +35,16 @@ void *ft_memcpy(void *dst, const void *src, size_t n)
         *d++ = *s++;
     return (dst);
 }
+
+void *ft_strdup(const char *str)
+{
+    size_t len;
+    char *dst;
+    
+    len = ft_strlen(str) + 1;
+    dst = (char *)malloc(len * sizeof(char));
+    if (!dst)
+        return (NULL);
+    ft_memcpy(dst, str, len);
+    return (dst);
+}
