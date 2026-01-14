@@ -66,3 +66,24 @@ void *ft_substr(char const *s, unsigned int start, size_t len)
     *(substr + i) = '\0';
     return (substr);
 }
+
+char *ft_strjoin(char *s1, char *s2)
+{
+    size_t len1;
+    size_t len2;
+    char *str;
+    char *p;
+    
+    len1 = ft_strlen(s1);
+    len2 = ft_strlen(s2);
+    str = malloc((len1 + len2 + 1) * sizeof(*str));
+    if (!str)
+        return (NULL);
+    p = str;
+    while (*s1)
+        *p++ = *s1++;
+    while (*s2)
+        *p++ = *s2++;
+    *p = '\0';
+    return (str);
+}
