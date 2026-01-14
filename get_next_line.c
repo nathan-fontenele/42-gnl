@@ -19,12 +19,12 @@ char *process_line(char **stash)
     int len;
     
     len = 0;
-    while ((*stash[len] != '\n') && (*stash[len] != '\0'))
+    while ((*stash)[len] != '\n' && (*stash)[len] != '\0')
         len++;
-    if ((*stash[len] == '\n'))
+    if ((*stash)[len] == '\n') 
     {
         line = ft_substr(*stash, 0, len + 1);
-        leftovers = ft_substr(*stash, len + 1, ft_strlen(*stash) (len + 1));
+        leftovers = ft_substr(*stash, len + 1, ft_strlen(*stash) - (len + 1));
         free(*stash);
         *stash = leftovers;
         return (line);
@@ -65,7 +65,7 @@ char *get_next_line_helper(char **stash, int fd)
         line = ft_strdup(*stash);
         free(*stash);
         *stash = NULL;
-        if (!line)
+        if (line && *line)
             return (line);
         free(line);
         return (NULL);
@@ -90,4 +90,19 @@ char *get_next_line(int fd)
     if (!stash)
         stash = ft_strdup("");
     return (get_next_line_helper(&stash, fd));
+}
+
+#include <fcntl.h>
+#include <stdio.h>
+int main(void)
+{
+    int fd = open("file_example.txt", O_RDONLY);
+    char *line;
+    while ((line = get_next_line(fd)))
+    {
+        printf("%s", line);
+        free(line);
+    }
+    close(fd);
+    return 0;
 }

@@ -36,7 +36,7 @@ void *ft_memcpy(void *dst, const void *src, size_t n)
     return (dst);
 }
 
-void *ft_strdup(const char *str)
+char *ft_strdup(const char *str)
 {
     size_t len;
     char *dst;
@@ -49,7 +49,7 @@ void *ft_strdup(const char *str)
     return (dst);
 }
 
-void *ft_substr(char const *s, unsigned int start, size_t len)
+char *ft_substr(char const *s, unsigned int start, size_t len)
 {
     char *substr;
     size_t i;
