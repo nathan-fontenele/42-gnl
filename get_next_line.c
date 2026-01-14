@@ -50,6 +50,33 @@ char *read_from_fd(int fd)
     return (line_read);
 }
 
+char *get_next_line_helper(char **stash, int fd)
+{
+    char *temp_stash;
+    char *line_read;
+    char *line;
+    
+    line = process_line(stash);
+    if (line)
+        return (line);
+    line_read = read_from_fd(fd);
+    if (!line_read)
+    {
+        line = ft_strdup(*stash);
+        free(*stash);
+        *stash = NULL;
+        if (!line)
+            return (line);
+        free(line);
+        return (NULL);
+    }
+    temp_stash = ft_strjoin(*stash, line_read);
+    free(*stash);
+    *stash = temp_stash;
+    free(line_read);
+    return (get_next_line_helper(stash, fd));
+}
+
 char *get_next_line(int fd)
 {
     
