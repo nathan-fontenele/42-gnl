@@ -92,17 +92,3 @@ char *get_next_line(int fd)
     return (get_next_line_helper(&stash, fd));
 }
 
-// #include <fcntl.h>
-// #include <stdio.h>
-// int main(void)
-// {
-//     int fd = open("file_example.txt", O_RDONLY);
-//     char *line;
-//     while ((line = get_next_line(fd)))
-//     {
-//         printf("%s", line);
-//         free(line);
-//     }
-//     close(fd);
-//     return 0;
-// }
