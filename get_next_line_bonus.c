@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: agomes-f <agomes-f@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 18:23:17 by agomes-f          #+#    #+#             */
-/*   Updated: 2026/01/09 20:09:24 by agomes-f         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char *process_line(char **stash)
 {
@@ -79,30 +67,15 @@ char *get_next_line_helper(char **stash, int fd)
 
 char *get_next_line(int fd)
 {
-    static char *stash;
+    static char *stash[MAX_FD];
     
-    if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+    if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
     {
-        free(stash);
-        stash = NULL;
+        free(stash[fd]);
+        stash[fd] = NULL;
         return (NULL);
     }
-    if (!stash)
-        stash = ft_strdup("");
-    return (get_next_line_helper(&stash, fd));
+    if (!stash[fd])
+        stash[fd] = ft_strdup("");
+    return (get_next_line_helper(&stash[fd], fd));
 }
-
-// #include <fcntl.h>
-// #include <stdio.h>
-// int main(void)
-// {
-//     int fd = open("file_example.txt", O_RDONLY);
-//     char *line;
-//     while ((line = get_next_line(fd)))
-//     {
-//         printf("%s", line);
-//         free(line);
-//     }
-//     close(fd);
-//     return 0;
-// }
